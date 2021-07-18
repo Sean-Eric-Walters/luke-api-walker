@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import { Router } from '@reach/router';
+import Search from './components/Search';
+import Result from './components/Result';
 
 function App() {
+  const [resource, setResource] = useState("");
+  const [idAPI, setIdAPI] = useState("");
+
+  const setInput = (newResource, newIdAPI) => {
+    setResource(newResource);
+    setIdAPI(newIdAPI)
+  }
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Search setInput = {setInput}/>
+      <Router>
+        <Result resource={resource} idAPI={idAPI} path={`/${resource}/${idAPI}`}/>
+      </Router>
     </div>
   );
 }
